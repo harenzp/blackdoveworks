@@ -1,8 +1,8 @@
 const Navbar = () => {
   return (
-    <header>
+    <header class="static">
         <nav class="navbar">
-            <ul class="navlinks">
+            <ul class="flex gap-5">
                 <li><a href="#about">About</a></li>
                 <li><a href="#work">Work</a></li>
                 <li><a href="#services">Services</a></li>

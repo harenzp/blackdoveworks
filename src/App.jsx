@@ -1,11 +1,11 @@
-// import Hero from "./components/Hero"
+import Hero from "./components/Hero"
 import Navbar from "./components/Navbar"
 
 const App = () => {
   return (
     <main>
       <Navbar />
-      {/* <Hero /> */}
+      <Hero />
     </main>
   )
 }
