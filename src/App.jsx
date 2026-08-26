@@ -1,4 +1,5 @@
 import About from "./components/About"
+import FAQ from "./components/FAQ"
 import Hero from "./components/Hero"
 import Navbar from "./components/Navbar"
 import Process from "./components/Process"
@@ -12,6 +13,7 @@ const App = () => {
       <About />
       <SelectedWork />
       <Process />
+      <FAQ />
     </main>
   )
 }
