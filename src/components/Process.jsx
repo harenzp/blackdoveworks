@@ -26,11 +26,11 @@ const processSteps = [
 
 const Process = () => {
   return (
-    <section id="process" className="py-20">
+    <section id="process" className="py-20 px-5">
       <div className="flex flex-col items-center gap-10">
         <h2 className="text-6xl font-medium">The Process</h2>
-        <div className="flex gap-10">
-          <div className="flex flex-col gap-8 w-200">
+        <div className="flex flex-wrap gap-10">
+          <div className="flex flex-col gap-8 max-w-200">
             {processSteps.map((step) => (
               <ProcessStep key={step.number} {...step} />
             ))}

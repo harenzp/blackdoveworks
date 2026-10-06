@@ -1,7 +1,7 @@
 const About = () => {
   return (
-    <section id="about" className="py-20 flex flex-col gap-8">
-      <div className="w-230 mx-auto text-center">
+    <section id="about" className="py-20 px-5 flex flex-col gap-8">
+      <div className="max-w-230 mx-auto text-center">
         <p>
             Black Dove Works was founded for visionary founders who want to work with like-minded people who genuinely care about what they create. Our goal isn’t just to make your website look good, but to build something that works, connects, and leaves a lasting impression.
             <br />

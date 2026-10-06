@@ -5,7 +5,7 @@ const FAQ = () => {
     <section id="faq" className="flex flex-col items-center py-20">
       <h2 className="text-6xl font-semibold mb-12">FAQ</h2>
 
-      <div className="p-4 w-300">
+      <div className="p-4 max-w-300">
         <Accordion title="How do we start a project?" 
                   answer="We begin with a short discovery call or message exchange to understand your goals and direction. 
                           From there, we define the scope and provide a tailored proposal.
