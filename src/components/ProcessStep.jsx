@@ -3,7 +3,7 @@ const ProcessStep = ({number, title, description}) => {
     <div className="flex gap-4">
       <span className="text-4xl font-medium min-w-12">{number}</span>
       <div className="flex flex-col gap-2">
-        <h3>{title}</h3>
+        <h3 className="text-2xl font-medium">{title}</h3>
         <p>{description}</p>
       </div>
     </div>

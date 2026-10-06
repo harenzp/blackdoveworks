@@ -5,22 +5,22 @@ const processSteps = [
   {
     number: "01",
     title: "Discover",
-    description: "We get to know your brand, goals, audience, and vision. This is where we ask questions, explore ideas, and define what success looks like."
+    description: "We start with a conversation. I get to know you, your brand, your goals, and what you want the website to achieve. From there, we define the direction and what needs to be built."
   },
   {
     number: "02",
     title: "Design",
-    description: "With a clear direction in place, we craft a visual experience that reflects your brand while keeping usability and intention at the center." 
+    description: "With the direction clear, I shape the visual experience around your brand. I focus on making it feel intentional, easy to use, and genuinely yours." 
   },
   {
     number: "03",
     title: "Develop",
-    description: "Once the design is approved, we bring it to life with clean, responsive, and high-performing development, paying close attention to every detail."
+    description: "Once the design is ready, I bring it to life with clean, responsive, and high-performing development. I follow modern web standards and best practices, with attention to accessibility, performance, responsiveness, and SEO."
   },
   {
     number: "04",
     title: "Launch and Beyond",
-    description: "After thorough testing and refinement, your website is ready to go live. We make sure everything performs as intended and is built to grow with your business."
+    description: "Before anything goes live, I thoroughly test the website across devices and screen sizes. I make sure the technical SEO foundations are in place, everything works as it should, and the site is ready to be discovered, used, and built on."
   }
 ]
 

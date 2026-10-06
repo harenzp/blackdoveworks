@@ -3,13 +3,13 @@ const About = () => {
     <section id="about" className="py-20 px-5 flex flex-col gap-8">
       <div className="max-w-230 mx-auto text-center">
         <p>
-            Black Dove Works was founded for visionary founders who want to work with like-minded people who genuinely care about what they create. Our goal isn’t just to make your website look good, but to build something that works, connects, and leaves a lasting impression.
+            I’m Christian Rey Piape, a web designer and developer who cares deeply about the work I put into the world.
             <br />
             <br />
-            We believe every project deserves our full attention. That’s why we intentionally take on a limited number of clients at a time. We immerse ourselves in your vision, take ownership of every detail, and care deeply about both the people behind the business and the people behind the screen.
+            I design and build websites for people and brands with something worth saying. I like working closely with the people behind the business, understanding what they’re trying to build, and turning that into something that feels intentional, works well, and actually feels like them.
             <br />
             <br />
-            Quality always comes before speed. Rushed work never reaches its full potential, and we won’t compromise your vision just to deliver faster. We’d rather create something exceptional than something rushed.
+            I don’t believe in rushing good work just to get it out the door. I’d rather take the time to think through the details, refine the rough edges, and build something I’m genuinely proud to put my name on.
         </p>
       </div>
       <div className="flex items-center gap-3 mx-auto">
@@ -18,7 +18,7 @@ const About = () => {
         </div>
         <div className="flex flex-col gap-0">
           <h3 className="text-md font-medium">Christian Rey Piape</h3>
-          <p className="text-gray-600">Founder & CEO</p>
+          <p className="text-gray-600">Dopest mthrfcker alive ⚒️</p>
         </div>
       </div>
     </section>
