@@ -18,7 +18,7 @@ const About = () => {
         </div>
         <div className="flex flex-col gap-0">
           <h3 className="text-md font-medium">Christian Rey Piape</h3>
-          <p className="text-gray-600">Dopest mthrfcker alive ⚒️</p>
+          <p className="text-gray-600">Dopest mthfcka alive! ⚒️</p>
         </div>
       </div>
     </section>
