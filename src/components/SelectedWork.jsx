@@ -1,6 +1,10 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AmyDawnImage from "../assets/AmyDawn.avif";
+import JadeMysticImage from "../assets/JadeMystic.avif";
+import JordanSolenderImage from "../assets/JordanSolender.avif";
+import MOCImage from "../assets/MOC.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,28 +13,28 @@ const projects = [
     title: "Amy Dawn Photography",
     category: "Web Design & Development",
     year: "2026",
-    image: "/AmyDawn.avif",
+    image: AmyDawnImage,
     link: "https://www.amydawnphotography.com/",
   },
   {
     title: "Jade Mystic Interiors",
     category: "Web Design & Development",
     year: "2026",
-    image: "/JadeMystic.avif",
+    image: JadeMysticImage,
     link: "https://www.jademysticinteriors.com/",
   },
   {
     title: "Jordan Solender",
     category: "Web Design & Development",
     year: "2026",
-    image: "/JordanSolender.avif",
+    image: JordanSolenderImage,
     link: "https://www.jordansolender.com/",
   },
   {
     title: "Murder ov Crows",
     category: "Web Design & Development",
     year: "2026",
-    image: "/MOC.png",
+    image: MOCImage,
     link: "https://murder-ov-crows.webflow.io/",
   },
 ]

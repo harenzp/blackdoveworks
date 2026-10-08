@@ -1,3 +1,5 @@
+import aboutImage from "../assets/christianReyPiape.avif";
+
 const About = () => {
   return (
     <section id="about" className="py-20 px-5 flex flex-col gap-8">
@@ -14,7 +16,7 @@ const About = () => {
       </div>
       <div className="flex items-center gap-3 mx-auto">
         <div className="w-15 rounded-full overflow-hidden">
-          <img src="/christianReyPiape.avif" alt="About Image" />
+          <img src={aboutImage} alt="About Image" />
         </div>
         <div className="flex flex-col gap-0">
           <h3 className="text-md font-medium">Christian Rey Piape</h3>
