@@ -41,7 +41,7 @@ const Process = () => {
       <div className="flex flex-col items-center gap-10">
         <h2 className="text-6xl font-medium">The Process</h2>
 
-        <div className="flex flex-wrap gap-10">
+        <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
           <div className="flex max-w-200 flex-col gap-8">
             {processSteps.map((step) => (
               <ProcessStep
@@ -52,7 +52,7 @@ const Process = () => {
             ))}
           </div>
 
-          <div className="h-100 w-80 overflow-hidden">
+          <div className="hidden overflow-hidden lg:block">
             <img
               src={activeStep.image}
               alt={activeStep.title}
