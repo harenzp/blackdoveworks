@@ -11,7 +11,7 @@ const FAQ = () => {
         FAQ
       </h2>
 
-      <div className="w-full max-w-240">
+      <div className="w-full max-w-280">
         <Accordion
           title="How do we start a project?"
           answer="We begin with a short discovery call or message exchange to understand your goals and direction. From there, I define the scope and provide a tailored proposal. Approve the proposal, submit the initial project deposit, and we'll get started."

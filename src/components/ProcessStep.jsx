@@ -1,27 +1,45 @@
+
 const ProcessStep = ({
   number,
   title,
   description,
-  onHover,
+  isActive,
+  onActivate,
 }) => {
   return (
-    <div
-      onMouseEnter={onHover}
-      className="flex gap-4"
+    <button
+      type="button"
+      onMouseEnter={onActivate}
+      onFocus={onActivate}
+      onClick={onActivate}
+      aria-pressed={isActive}
+      className="group flex w-full cursor-pointer gap-5 py-4 text-left transition-colors duration-200 md:gap-8 md:py-4"
     >
-      <span className="text-4xl font-medium">
+      <span
+        className={`font-archivo text-4xl transition-colors duration-300 ${
+          isActive ? "text-black" : "text-black/60"
+        }`}
+      >
         {number}
       </span>
 
-      <div className="flex flex-col gap-2">
-        <h3 className="text-4xl font-medium">
-          {title}
-        </h3>
+      <div className="flex flex-1 flex-col gap-3">
+        <div className="flex items-center justify-between gap-4">
+          <h3
+            className={`font-archivo text-2xl font-medium transition-colors duration-200 md:text-3xl lg:text-4xl ${
+              isActive ? "text-black" : "text-black/60"
+            }`}
+          >
+            {title}
+          </h3>
+        </div>
 
-        <p>{description}</p>
+        <p className="max-w-2xl text-sm leading-relaxed text-black/60 md:text-base">
+          {description}
+        </p>
       </div>
-    </div>
+    </button>
   );
 };
 
-export default ProcessStep
+export default ProcessStep;
