@@ -25,6 +25,9 @@
     .work-item {
         @apply w-50 h-50 bg-gray-300 rounded-full;
     }
+    .link-hover {
+    @apply inline-block transition-colors duration-300 ease-out hover:bg-black hover:text-white;
+  }
 
 }
 

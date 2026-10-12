@@ -3,12 +3,12 @@ const Navbar = () => {
     <header className="static">
         <nav className="navbar">
             <ul className="flex gap-5">
-                <li><a href="#about">About</a></li>
-                <li><a href="#selected-work">Work</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#process">Process</a></li>
+                <li><a href="#about" className="link-hover px-1">About</a></li>
+                <li><a href="#selected-work" className="link-hover px-1">Work</a></li>
+                <li><a href="#services" className="link-hover px-1">Services</a></li>
+                <li><a href="#process" className="link-hover px-1">Process</a></li>
             </ul>
-            <a href="#chat">Let's Chat!</a>
+            <a href="#chat" className="link-hover px-1">Let's Chat!</a>
         </nav>
     </header>
   )

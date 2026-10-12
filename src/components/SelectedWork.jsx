@@ -75,7 +75,7 @@ const SelectedWork = () => {
       id="selected-work"
       className="overflow-hidden py-20"
     >
-      <div className="container-site">
+      <div className="px-8">
         <h2 className="mb-16 text-6xl font-medium">
           Selected Work.
         </h2>
