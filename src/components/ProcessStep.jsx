@@ -13,7 +13,7 @@ const ProcessStep = ({
       onFocus={onActivate}
       onClick={onActivate}
       aria-pressed={isActive}
-      className="group flex w-full cursor-pointer gap-5 py-4 text-left transition-colors duration-200 md:gap-8 md:py-4"
+      className="group flex w-full cursor-pointer gap-5 py-1 text-left transition-colors duration-200 md:gap-8 md:py-1"
     >
       <span
         className={`font-archivo text-3xl transition-colors duration-300 ${
@@ -34,7 +34,7 @@ const ProcessStep = ({
           </h3>
         </div>
 
-        <p className="max-w-2xl text-sm leading-relaxed text-black/60 md:text-base">
+        <p className="max-w-2xl text-sm leading-relaxed text-black/90 md:text-base">
           {description}
         </p>
       </div>

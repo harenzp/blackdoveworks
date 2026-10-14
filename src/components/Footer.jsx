@@ -1,23 +1,63 @@
 const Footer = () => {
   return (
-    <section id="footer" className="py-6 pt-8 px-5">
-      <div className="flex gap-15 items-center justify-between">
-        <div className="flex flex-col gap-0">
-          <div className="flex items-center">
-            <h2 className="font-archivo font-bold text-[clamp(2rem,6vw,7rem)] leading-[1.2]">BLACK DOVE WORKS.</h2>
-            <h2 className="font-archivo font-bold text-[clamp(1.5rem,6vw,2.5rem)]">©2026</h2>
+    <section id="footer" className="py-5 pt-60 px-6 bg-black">
+      <div className="flex justify-between items-end text-white">
+        <div className="flex flex-col">
+          <h2 className="font-archivo font-semibold">Christian Rey Piape</h2>
+          <p className="font-archivo font-medium text-md">© 2026 All rights reserved</p>
+        </div>
+        <div className="flex gap-30">
+          <div className="flex flex-col">
+            <h3 className="mb-5 text-white/70 font-medium">Contact</h3>
+            <ul className="flex flex-col gap-1">
+              <li>
+                <a href="#email" className="hover:underline">
+                  christianreypiape@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="phone" className="hover:underline">
+                  +639311161150
+                </a>
+              </li>
+              <li>
+                <a href="#linkedin" className="hover:underline">
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
           </div>
-          <p className="text-[clamp(1rem,2vw,2.125rem)]">A creative development studio run by a creative developer.</p>
+          <div className="flex flex-col">
+            <h3 className="mb-5 text-white/70 font-medium">Follow</h3>
+            <ul className="flex flex-col gap-1">
+              <li>
+                <a href="#github" className="hover:underline">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a href="#instagram" className="hover:underline">
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a href="#x" className="hover:underline">
+                  Twitter/X
+                </a>
+              </li>
+              <li>
+                <a href="#facebook" className="hover:underline">
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a href="#spotify" className="hover:underline">
+                  Spotify
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="flex">
-          <ul className="flex flex-col items-end gap-1">
-              <li><a href="#about">About</a></li>
-              <li><a href="#work">Work</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#process">Process</a></li>
-          </ul>
-        </div>
-        
       </div>
     </section>
   )
