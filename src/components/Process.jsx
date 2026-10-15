@@ -62,7 +62,7 @@ const Process = () => {
             ))}
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden bg-black/5 lg:aspect-auto lg:min-h-full">
+          <div className="relative aspect-4/3 overflow-hidden bg-black/5 lg:aspect-auto lg:min-h-full">
             {processSteps.map((step, index) => (
               <img
                 key={step.number}

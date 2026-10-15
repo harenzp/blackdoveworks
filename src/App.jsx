@@ -6,10 +6,12 @@ import Navbar from "./components/Navbar"
 import Process from "./components/Process"
 import SelectedWork from "./components/SelectedWork"
 import SmoothScroll from "./components/SmoothScroll"
+import BlackFireball from "./components/BlackFireball"
 
 const App = () => {
   return (
     <main>
+      <BlackFireball />
       <SmoothScroll />
       <Navbar />
       <Hero />
