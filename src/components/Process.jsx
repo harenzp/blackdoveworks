@@ -45,7 +45,7 @@ const Process = () => {
     <section id="process" className="px-5 py-20 md:px-8 lg:px-10 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 flex justify-center md:mb-16">
-          <h2 className="font-archivo text-6xl font-medium">
+          <h2 className="font-archivo text-3xl sm:text-6xl font-medium">
             The Process
           </h2>
         </div>

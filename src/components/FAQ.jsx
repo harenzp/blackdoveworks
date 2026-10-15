@@ -7,7 +7,7 @@ const FAQ = () => {
       id="faq"
       className="flex flex-col items-center px-5 py-20"
     >
-      <h2 className="mb-12 text-5xl font-medium md:text-6xl">
+      <h2 className="mb-12 text-3xl sm:text-6xl font-medium md:text-6xl">
         FAQ
       </h2>
 
