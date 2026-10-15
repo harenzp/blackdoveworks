@@ -7,11 +7,13 @@ import Process from "./components/Process"
 import SelectedWork from "./components/SelectedWork"
 import SmoothScroll from "./components/SmoothScroll"
 import BlackFireball from "./components/BlackCursorEffect"
+import WhatsAppChat from "./components/WhatsAppChat"
 
 const App = () => {
   return (
     <main>
       <BlackFireball />
+      <WhatsAppChat />
       <SmoothScroll />
       <Navbar />
       <Hero />

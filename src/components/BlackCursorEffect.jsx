@@ -441,7 +441,7 @@ export default function BlackFireball() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[9999] h-full w-full"
+      className="pointer-events-none fixed inset-0 z-9999 h-full w-full"
       style={{
         mixBlendMode: FIRE_SETTINGS.differenceBlend
           ? "difference"
