@@ -15,7 +15,7 @@ const ProcessStep = ({
     >
       <div className="flex gap-5 text-left md:gap-8">
         <span
-          className={`font-archivo text-3xl transition-colors duration-300 ${
+          className={`font-archivo text-2xl md:text-4xl transition-colors duration-300 ${
             isActive ? "text-black" : "text-black/60"
           }`}
         >
@@ -24,14 +24,14 @@ const ProcessStep = ({
 
         <div className="flex flex-1 flex-col gap-3">
           <h3
-            className={`font-archivo text-2xl font-medium transition-colors duration-300 md:text-3xl ${
+            className={`font-archivo text-2xl font-medium transition-colors duration-300 md:text-4xl ${
               isActive ? "text-black" : "text-black/60"
             }`}
           >
             {title}
           </h3>
 
-          <p className="max-w-[52rem] text-sm leading-relaxed text-black/90 md:text-base">
+          <p className="max-w-[59rem] text-sm leading-relaxed text-black/90 md:text-base">
             {description}
           </p>
         </div>

@@ -74,10 +74,10 @@ const SelectedWork = () => {
     <section
       ref={sectionRef}
       id="selected-work"
-      className="overflow-hidden py-10 sm:py-30"
+      className="overflow-hidden py-10 md:py-30"
     >
       <div className="px-5 md:px-8 lg:px-10">
-        <h2 className="mb-10 text-3xl font-medium sm:mb-16 sm:text-6xl">
+        <h2 className="mb-10 text-center sm:text-left text-3xl font-medium sm:mb-16 sm:text-6xl">
           Selected Work.
         </h2>
       </div>

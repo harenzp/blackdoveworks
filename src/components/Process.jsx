@@ -42,7 +42,7 @@ const Process = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section id="process" className="px-5 py-20 md:px-8 lg:px-10 lg:py-32">
+    <section id="process" className="px-5 py-20 md:px-10 md:py-30">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 flex justify-center md:mb-16">
           <h2 className="font-archivo text-3xl sm:text-6xl font-medium">
@@ -51,7 +51,7 @@ const Process = () => {
         </div>
 
         <div
-          className="mx-auto flex max-w-[56rem] flex-col gap-5"
+          className="mx-auto flex max-w-5xl flex-col gap-5"
         >
           {processSteps.map((step, index) => (
             <ProcessStep

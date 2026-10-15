@@ -2,7 +2,7 @@ import aboutImage from "../assets/christianReyPiape.avif";
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-5 flex flex-col gap-6 sm:gap-8">
+    <section id="about" className="py-15 md:py-30 px-5 flex flex-col gap-6 sm:gap-8">
       <div className="max-w-4xl mx-auto text-justify sm:text-center text-sm sm:text-base">
         <p>
             I’m Christian Rey Piape, a creative developer who cares deeply about the work I put into the world.
