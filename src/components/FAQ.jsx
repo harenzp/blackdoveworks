@@ -5,13 +5,13 @@ const FAQ = () => {
   return (
     <section
       id="faq"
-      className="flex flex-col items-center px-5 py-20"
+      className="flex flex-col items-center px-5 pt-15 md:pt-20 pb-30 md:pb-50"
     >
-      <h2 className="mb-12 text-3xl sm:text-6xl font-medium md:text-6xl">
+      <h2 className="mb-10 md:mb-20 text-3xl sm:text-6xl font-medium md:text-6xl">
         FAQ
       </h2>
 
-      <div className="w-full max-w-280">
+      <div className="w-full max-w-5xl">
         <Accordion
           title="How do we start a project?"
           answer="We begin with a short discovery call or message exchange to understand your goals and direction. From there, I define the scope and provide a tailored proposal. Approve the proposal, submit the initial project deposit, and we'll get started."
