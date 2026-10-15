@@ -39,7 +39,7 @@ const ProcessStep = ({
 
       {/* Floating GIF detail */}
       <div
-        className={`pointer-events-none absolute left-[calc(100%+1rem)] top-1/2 z-20 hidden w-28 -translate-y-1/2 overflow-hidden rounded-lg shadow-xl transition-all duration-300 ease-out lg:block ${
+        className={`pointer-events-none absolute left-[calc(100%+1rem)] top-1/2 z-20 hidden w-28 -translate-y-1/2 overflow-hidden rounded-lg shadow-xl transition-all duration-300 ease-out xl:block ${
           isActive
             ? "translate-x-0 rotate-3 scale-100 opacity-100"
             : "translate-x-3 rotate-6 scale-90 opacity-0"
