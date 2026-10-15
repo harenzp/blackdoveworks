@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <header className="static">
-      <nav className="navbar flex-wrap items-end gap-1 text-sm sm:text-lg">
+      <nav className="navbar flex flex-wrap justify-between gap-1 text-sm sm:text-lg">
         <ul className="flex gap-1">
           <li>
             <a href="#about" className="link-hover px-1">
@@ -45,10 +45,19 @@ const Navbar = () => {
         <button
           type="button"
           onClick={handleCopyEmail}
-          className="link-hover px-1 cursor-pointer"
+          className="link-hover cursor-pointer px-1"
           aria-live="polite"
         >
-          {copied ? "email copied!" : "christianreypiape@gmail.com"}
+          {copied ? (
+            "email copied!"
+          ) : (
+            <>
+              <span className="sm:hidden">Contact</span>
+              <span className="hidden sm:inline">
+                christianreypiape@gmail.com
+              </span>
+            </>
+          )}
         </button>
       </nav>
     </header>
