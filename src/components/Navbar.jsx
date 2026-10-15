@@ -1,7 +1,7 @@
 const Navbar = () => {
   return (
     <header className="static">
-        <nav className="navbar flex-wrap items-end gap-1">
+        <nav className="navbar flex-wrap items-end gap-1 text-sm sm:text-lg">
             <ul className="flex gap-1">
                 <li><a href="#about" className="link-hover px-1">About</a></li>
                 <li><a href="#selected-work" className="link-hover px-1">Work</a></li>
