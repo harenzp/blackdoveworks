@@ -1,12 +1,12 @@
 const Footer = () => {
   return (
     <section id="footer" className="py-5 pt-60 px-6 bg-black">
-      <div className="flex justify-between flex-col-reverse gap-20 sm:items-end sm:flex-row text-white">
+      <div className="flex justify-between flex-col-reverse gap-30 sm:items-end sm:flex-row text-white">
         <div className="flex flex-col">
           <h2 className="font-archivo font-semibold">Christian Rey Piape</h2>
           <p className="font-archivo font-medium text-md">© 2026 All rights reserved</p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-10 sm:gap-20">
+        <div className="flex flex-col sm:flex-row gap-10 sm:gap-20 sm:mr-30">
           <div className="flex flex-col">
             <h3 className="mb-5 text-white/70 font-medium">Contact</h3>
             <ul className="flex flex-col gap-1">
