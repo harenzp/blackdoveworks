@@ -135,7 +135,7 @@ export default function WhatsAppChat() {
         aria-label={isOpen ? "Close WhatsApp chat" : "Open WhatsApp chat"}
         aria-expanded={isOpen}
         aria-controls="whatsapp-chat"
-        className="ml-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#25D366]/30 bg-[#101010] text-[#25D366] shadow-lg shadow-black/30 transition duration-300 hover:scale-105 hover:bg-[#191919] hover:shadow-[#25D366]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#25D366]"
+        className="cursor-pointer ml-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#25D366]/30 bg-[#101010] text-[#25D366] shadow-lg shadow-black/30 transition duration-300 hover:scale-105 hover:bg-[#191919] hover:shadow-[#25D366]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#25D366]"
       >
         {isOpen ? (
           <svg

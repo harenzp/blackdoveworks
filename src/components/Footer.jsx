@@ -11,18 +11,13 @@ const Footer = () => {
             <h3 className="mb-5 text-white/70 font-medium">Contact</h3>
             <ul className="flex flex-col gap-1">
               <li>
-                <a href="#email" className="hover:underline">
+                <a href="mailto:christianreypiape@gmail.com" className="hover:underline">
                   christianreypiape@gmail.com
                 </a>
               </li>
               <li>
-                <a href="phone" className="hover:underline">
+                <a href="tel:+639311161150" className="hover:underline">
                   +639311161150
-                </a>
-              </li>
-              <li>
-                <a href="#linkedin" className="hover:underline">
-                  LinkedIn
                 </a>
               </li>
             </ul>
@@ -31,27 +26,22 @@ const Footer = () => {
             <h3 className="mb-5 text-white/70 font-medium">Follow</h3>
             <ul className="flex flex-col gap-1">
               <li>
-                <a href="#github" className="hover:underline">
+                <a href="https://www.linkedin.com/in/christian-rey-piape" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/harenzp" target="_blank" rel="noopener noreferrer" className="hover:underline">
                   GitHub
                 </a>
               </li>
               <li>
-                <a href="#instagram" className="hover:underline">
+                <a href="https://www.instagram.com/harenznopra" target="_blank" rel="noopener noreferrer" className="hover:underline">
                   Instagram
                 </a>
               </li>
               <li>
-                <a href="#x" className="hover:underline">
-                  Twitter/X
-                </a>
-              </li>
-              <li>
-                <a href="#facebook" className="hover:underline">
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a href="#spotify" className="hover:underline">
+                <a href="https://open.spotify.com/user/harenzzz" target="_blank" rel="noopener noreferrer" className="hover:underline">
                   Spotify
                 </a>
               </li>
