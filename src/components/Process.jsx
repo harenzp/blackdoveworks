@@ -43,39 +43,24 @@ const Process = () => {
 
   return (
     <section id="process" className="px-5 py-20 md:px-8 lg:px-10 lg:py-32">
-      <div className="mx-auto max-w-300">
-        <div className="mb-12 flex  justify-center md:mb-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 flex justify-center md:mb-16">
           <h2 className="font-archivo text-6xl font-medium">
             The Process
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.8fr)] lg:gap-16">
-          <div className="flex flex-col gap-5">
-            {processSteps.map((step, index) => (
-              <ProcessStep
-                key={step.number}
-                {...step}
-                isActive={activeStep === index}
-                onActivate={() => setActiveStep(index)}
-              />
-            ))}
-          </div>
-
-          <div className="relative aspect-4/3 overflow-hidden bg-black/5 lg:aspect-auto lg:min-h-full">
-            {processSteps.map((step, index) => (
-              <img
-                key={step.number}
-                src={step.image}
-                alt={step.title}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ease-in-out ${
-                  activeStep === index
-                    ? "opacity-100"
-                    : "opacity-0"
-                }`}
-              />
-            ))}
-          </div>
+        <div
+          className="mx-auto flex max-w-[56rem] flex-col gap-5"
+        >
+          {processSteps.map((step, index) => (
+            <ProcessStep
+              key={step.number}
+              {...step}
+              isActive={activeStep === index}
+              onActivate={() => setActiveStep(index)}
+            />
+          ))}
         </div>
       </div>
     </section>
