@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar"
 import Process from "./components/Process"
 import SelectedWork from "./components/SelectedWork"
 import SmoothScroll from "./components/SmoothScroll"
-import BlackFireball from "./components/BlackFireball"
+import BlackFireball from "./components/BlackCursorEffect"
 
 const App = () => {
   return (
