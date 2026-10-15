@@ -31,7 +31,7 @@ const FIRE_SETTINGS = {
   // Scroll behavior
   heroSelector: "#hero",
   heroStartScale: 1,
-  heroEndScale: 0.03,
+  heroEndScale: 0,
   scrollScaleSmoothness: 8,
   scrollShrinkPower: 4,
 };
