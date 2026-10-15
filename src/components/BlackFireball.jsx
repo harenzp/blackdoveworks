@@ -27,6 +27,13 @@ const FIRE_SETTINGS = {
   pixelRatio: 1.5,
   desktopOnly: true,
   differenceBlend: true,
+
+  // Scroll behavior
+  heroSelector: "#hero",
+  heroStartScale: 1,
+  heroEndScale: 0.03,
+  scrollScaleSmoothness: 8,
+  scrollShrinkPower: 4,
 };
 
 const vertexShader = `
@@ -55,6 +62,7 @@ const fragmentShader = `
   uniform float uFlickerSpeed;
   uniform float uSharpness;
   uniform float uSpeedInfluence;
+  uniform float uBallScale;
 
   varying vec2 vUv;
 
@@ -104,7 +112,7 @@ const fragmentShader = `
     vec2 perpendicular = vec2(-direction.y, direction.x);
 
     // Coordinates relative to the cursor.
-    vec2 p = gl_FragCoord.xy - uMouse;
+    vec2 p = (gl_FragCoord.xy - uMouse) / max(uBallScale, 0.001);
 
     float along = dot(p, direction);
     float across = dot(p, perpendicular);
@@ -206,6 +214,12 @@ export default function BlackFireball() {
 
     const settings = FIRE_SETTINGS;
 
+    const heroElement = document.querySelector(
+      settings.heroSelector
+    );
+
+    let targetBallScale = settings.heroStartScale;
+
     const renderer = new THREE.WebGLRenderer({
       canvas,
       alpha: true,
@@ -265,6 +279,7 @@ export default function BlackFireball() {
         uFlickerSpeed: { value: settings.flickerSpeed },
         uSharpness: { value: settings.sharpness },
         uSpeedInfluence: { value: settings.speedInfluence },
+        uBallScale: { value: settings.heroStartScale },
       },
       vertexShader,
       fragmentShader,
@@ -329,6 +344,41 @@ export default function BlackFireball() {
       animationFrame = requestAnimationFrame(animate);
 
       const delta = Math.min(clock.getDelta(), 0.033);
+
+      // Shrink the fireball as the hero scrolls out of view.
+      if (heroElement) {
+        const heroRect = heroElement.getBoundingClientRect();
+
+        const heroHeight = Math.max(heroRect.height, 1);
+
+        const rawProgress = THREE.MathUtils.clamp(
+          1 - heroRect.bottom / heroHeight,
+          0,
+          1
+        );
+
+        const progress = Math.pow(
+          rawProgress,
+          1 / settings.scrollShrinkPower
+        );
+
+        targetBallScale = THREE.MathUtils.lerp(
+          settings.heroStartScale,
+          settings.heroEndScale,
+          progress
+        );
+      }
+
+      // Smooth the size change.
+      const scaleFollow =
+        1 - Math.exp(-settings.scrollScaleSmoothness * delta);
+
+      material.uniforms.uBallScale.value = THREE.MathUtils.lerp(
+        material.uniforms.uBallScale.value,
+        targetBallScale,
+        scaleFollow
+      );
+
       material.uniforms.uTime.value = clock.elapsedTime;
 
       // Smoothly follow the pointer.
