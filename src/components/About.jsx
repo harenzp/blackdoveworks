@@ -20,7 +20,7 @@ const About = () => {
         </div>
         <div className="flex flex-col gap-0">
           <h3 className="text-sm sm:text-md font-medium">Christian Rey Piape</h3>
-          <p className="text-sm sm:text-base text-gray-600">Creative Developer | Black Dove Works</p>
+          <p className="text-xs sm:text-xs text-gray-600">Creative Developer ⚡ Chopper Guy</p>
         </div>
       </div>
     </section>

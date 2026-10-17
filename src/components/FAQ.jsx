@@ -25,7 +25,7 @@ const FAQ = () => {
 
         <Accordion
           title="How much does a project cost?"
-          answer="Most projects range from $800 to $2,400 USD, depending on the scope and complexity. Every project is scoped around what your website actually needs."
+          answer="Most projects range from $800 to $2,400 USD, depending on the scope and complexity. A 50% deposit is required to get started, with the remaining balance due once the agreed scope is completed and you've had a chance to review the final website. I want you to feel confident in what we're building together, so reasonable refinements are part of the process."
         />
 
         <Accordion
