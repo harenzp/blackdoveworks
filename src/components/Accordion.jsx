@@ -1,8 +1,8 @@
 
 import { useState } from "react";
 
-const Accordion = ({ title, answer }) => {
-  const [accordionOpen, setAccordionOpen] = useState(false);
+const Accordion = ({ title, answer, initiallyOpen = false }) => {
+  const [accordionOpen, setAccordionOpen] = useState(initiallyOpen);
 
   const toggleAccordion = () => {
     setAccordionOpen((prev) => !prev);
@@ -38,7 +38,7 @@ const Accordion = ({ title, answer }) => {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="max-w-3xl px-4 pb-5 leading-relaxed text-sm sm:text-base">
+          <p className="max-w-4xl px-4 pb-5 leading-relaxed text-sm sm:text-base">
             {answer}
           </p>
         </div>
