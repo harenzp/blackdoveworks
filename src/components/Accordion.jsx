@@ -38,7 +38,7 @@ const Accordion = ({ title, answer }) => {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="max-w-3xl px-4 pb-5 leading-relaxed">
+          <p className="max-w-3xl px-4 pb-5 leading-relaxed text-sm sm:text-base">
             {answer}
           </p>
         </div>
