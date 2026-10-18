@@ -1,4 +1,4 @@
-import profileImage from "../assets/christianReyPiape.avif";
+import profileImage from "../assets/Christian-Rey-Piape.avif";
 import { useState } from "react";
 
 const WHATSAPP_NUMBER = "639311161150";

@@ -1,4 +1,4 @@
-import aboutImage from "../assets/christianReyPiape.avif";
+import aboutImage from "../assets/Christian-Rey-Piape.avif";
 
 const About = () => {
   return (
