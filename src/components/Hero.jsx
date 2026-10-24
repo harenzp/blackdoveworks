@@ -1,6 +1,7 @@
 const Hero = () => {
   return (
-    <section id="hero" className="flex h-svh px-2 sm:px-5 pt-30 pb-20 sm:pb-4">
+    <section id="hero" className="relative flex h-svh overflow-hidden px-2 sm:px-5 pt-30 pb-20 sm:pb-4">
+      
       <div className="flex flex-wrap w-full gap-15 justify-between mt-auto">
         <div className="flex flex-col gap-5 sm:gap-10">
           <h1 className="font-archivo text-[clamp(2rem,18vw,15rem)] sm:text-[clamp(2rem,15vw,15rem)] font-bold leading-[0.8]">Christian<br/>Rey<br/>Piape.</h1>

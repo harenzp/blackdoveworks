@@ -203,6 +203,7 @@ const fragmentShader = `
 
 export default function BlackFireball() {
   const canvasRef = useRef(null);
+  const imageRevealRef = useRef(null);
 
   useEffect(() => {
     if (FIRE_SETTINGS.desktopOnly && window.innerWidth < 768) {
@@ -211,6 +212,8 @@ export default function BlackFireball() {
 
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const imageReveal = imageRevealRef.current;
+    if (!canvas || !imageReveal) return;
 
     const settings = FIRE_SETTINGS;
 
@@ -388,6 +391,36 @@ export default function BlackFireball() {
 
       smoothMouse.lerp(targetMouse, follow);
 
+      // Sync the image reveal with the actual smoothed fireball.
+      const hero = document.querySelector("#hero");
+      const heroRect = hero?.getBoundingClientRect();
+
+      if (imageReveal && heroRect) {
+        const scale = material.uniforms.uBallScale.value;
+
+        imageReveal.style.setProperty(
+          "--x",
+          `${smoothMouse.x - heroRect.left}px`
+        );
+
+        imageReveal.style.setProperty(
+          "--y",
+          `${window.innerHeight - smoothMouse.y - heroRect.top}px`
+        );
+
+        imageReveal.style.setProperty(
+          "--radius",
+          `${settings.coreRadius * scale}px`
+        );
+
+        imageReveal.style.setProperty(
+          "--reveal-opacity",
+          heroRect.bottom > 0 && heroRect.top < window.innerHeight && scale > 0.01
+            ? "1"
+            : "0"
+        );
+      }
+
       // Calculate velocity from actual smoothed movement.
       const targetVelocity = smoothMouse
         .clone()
@@ -438,15 +471,23 @@ export default function BlackFireball() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-9999 h-full w-full"
-      style={{
-        mixBlendMode: FIRE_SETTINGS.differenceBlend
-          ? "difference"
-          : "normal",
-      }}
-    />
+    <>
+      <div
+        ref={imageRevealRef}
+        aria-hidden="true"
+        className="fireball-image-reveal"
+      />
+
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-9999 h-full w-full"
+        style={{
+          mixBlendMode: FIRE_SETTINGS.differenceBlend
+            ? "difference"
+            : "normal",
+        }}
+      />
+    </>
   );
 }

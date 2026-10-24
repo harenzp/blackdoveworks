@@ -27,7 +27,43 @@
     }
     .link-hover {
     @apply inline-block transition-colors duration-300 ease-out hover:bg-black hover:text-white;
-  }
+    }
+
+    .fireball-image-reveal {
+    position: absolute;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+
+    background-image: url("./assets/christian-rey-piape-chopper.avif");
+    background-size: auto 120%;
+    background-position: calc(50% + 250px) bottom;
+    background-repeat: no-repeat;
+
+    --x: 50%;
+    --y: 50%;
+    --radius: 0px;
+    --reveal-opacity: 0;
+
+    opacity: var(--reveal-opacity);
+
+    -webkit-mask-image: radial-gradient(
+        circle var(--radius) at var(--x) var(--y),
+        black 0%,
+        black 100%,
+        transparent 100%
+    );
+
+    mask-image: radial-gradient(
+        circle var(--radius) at var(--x) var(--y),
+        black 0%,
+        black 99%,
+        transparent 100%
+    );
+
+    mix-blend-mode: difference;
+    }
+
 
 }
 
