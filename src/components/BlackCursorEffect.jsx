@@ -3,7 +3,7 @@ import * as THREE from "three";
 
 const FIRE_SETTINGS = {
   // Core
-  coreRadius: 220,
+  coreRadius: 240,
   coreDistortion: 0,
 
   // Tail

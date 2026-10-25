@@ -35,9 +35,9 @@
     z-index: 9998;
     pointer-events: none;
 
-    background-image: url("./assets/christian-rey-piape-chopper.avif");
-    background-size: auto 120%;
-    background-position: calc(50% + 250px) bottom;
+    background-image: url("./assets/christian-rey-piape-circle.avif");
+    background-size: auto 50%;
+    background-position: calc(50% + 360px) 95%;
     background-repeat: no-repeat;
 
     --x: 50%;
@@ -50,14 +50,14 @@
     -webkit-mask-image: radial-gradient(
         circle var(--radius) at var(--x) var(--y),
         black 0%,
-        black 100%,
+        black 90%,
         transparent 100%
     );
 
     mask-image: radial-gradient(
         circle var(--radius) at var(--x) var(--y),
         black 0%,
-        black 99%,
+        black 90%,
         transparent 100%
     );
 
