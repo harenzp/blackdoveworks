@@ -1,0 +1,39 @@
+---
+import "../index.css"
+import BlackFireball from "../components/BlackCursorEffect.jsx";
+import WhatsAppChat from "../components/WhatsAppChat.jsx";
+import SmoothScroll from "../components/SmoothScroll.jsx";
+import Navbar from "../components/Navbar.jsx";
+import Hero from "../components/Hero.jsx";
+import About from "../components/About.jsx";
+import SelectedWork from "../components/SelectedWork.jsx";
+import Process from "../components/Process.jsx";
+import FAQ from "../components/FAQ.jsx";
+import Footer from "../components/Footer.jsx";
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/christian-favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Christian Rey Piape</title>
+		<meta name="description" content="Christian Rey Piape is a web developer creating thoughtful, design-led websites with a focus on detail, performance, and user experience." />
+	</head>
+	<body>
+		<main>
+			<BlackFireball client:only="react" />
+			<WhatsAppChat client:load />
+			<SmoothScroll client:only="react" />
+			<Navbar client:load />
+			<Hero />
+			<About />
+			<SelectedWork client:load />
+			<Process client:load />
+			<FAQ client:load />
+			<Footer />
+		</main>
+	</body>
+</html>
