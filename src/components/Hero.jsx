@@ -14,7 +14,7 @@ const Hero = () => {
           style={{ width: "min(100cqw, 100cqh)", height: "min(100cqw, 100cqh)" }}
         >
           <img
-            src={portraitImage}
+            src={portraitImage.src}
             alt=""
             className="pointer-events-none h-full w-full object-cover"
             style={{ objectPosition: `50% ${PORTRAIT_Y}%` }}

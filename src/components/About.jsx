@@ -16,7 +16,7 @@ const About = () => {
       </div>
       <div className="flex items-center gap-3 sm:mx-auto">
         <div className="w-12 sm:w-15 rounded-full overflow-hidden">
-          <img src={aboutImage} alt="About Image" />
+          <img src={aboutImage.src} alt="About Image" />
         </div>
         <div className="flex flex-col gap-0">
           <h3 className="text-sm sm:text-md font-medium">Christian Rey Piape</h3>

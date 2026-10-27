@@ -96,7 +96,7 @@ const SelectedWork = () => {
           >
             <div className="overflow-hidden">
               <img
-                src={project.image}
+                src={project.image.src}
                 alt={project.title}
                 loading="lazy"
                 className="aspect-video w-full object-cover transition-transform duration-700 group-hover:scale-105"

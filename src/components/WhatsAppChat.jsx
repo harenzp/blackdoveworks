@@ -49,7 +49,7 @@ export default function WhatsAppChat() {
           <div className="flex items-center gap-3 border-b border-white/10 bg-[#171717] px-5 py-4">
             <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[#25D366]/40">
             <img
-                src={profileImage}
+                src={profileImage.src}
                 alt="Christian Piape"
                 className="h-full w-full object-cover"
             />
