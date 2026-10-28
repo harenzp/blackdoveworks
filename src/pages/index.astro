@@ -1,12 +1,16 @@
 ---
-import "../index.css"
-import BlackFireball from "../components/BlackCursorEffect.jsx";
-import WhatsAppChat from "../components/WhatsAppChat.jsx";
-import SmoothScroll from "../components/SmoothScroll.jsx";
+import "@fontsource-variable/archivo";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "../index.css";
+
+import CursorEffect from "../components/CursorEffect.astro";
+import WhatsAppChat from "../components/WhatsAppChat.astro";
+import SmoothScroll from "../components/SmoothScroll.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
-import SelectedWork from "../components/SelectedWork.jsx";
+import SelectedWork from "../components/SelectedWork.astro";
 import Process from "../components/Process.astro";
 import FAQ from "../components/FAQ.astro";
 import Footer from "../components/Footer.astro";
@@ -24,13 +28,13 @@ import Footer from "../components/Footer.astro";
 	</head>
 	<body>
 		<main>
-			<BlackFireball client:only="react" />
-			<WhatsAppChat client:load />
-			<SmoothScroll client:only="react" />
+			<CursorEffect />
+			<WhatsAppChat />
+			<SmoothScroll />
 			<Navbar />
 			<Hero />
 			<About />
-			<SelectedWork client:load />
+			<SelectedWork />
 			<Process />
 			<FAQ />
 			<Footer />

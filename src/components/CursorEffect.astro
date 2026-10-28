@@ -1,0 +1,414 @@
+---
+// Black "fireball" that follows the cursor on desktop, plus the photo that is
+// revealed through it. One fullscreen shader drawn with plain WebGL: no
+// Three.js needed. The markup is hidden below md, so phones never run it.
+---
+
+<div data-fireball-reveal aria-hidden="true" class="fireball-image-reveal hidden md:block"></div>
+<canvas
+  data-fireball
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-9999 hidden h-full w-full md:block"
+  style="mix-blend-mode: difference"></canvas>
+
+<script>
+  const SETTINGS = {
+    // Core
+    coreRadius: 240,
+    coreDistortion: 0,
+
+    // Tail
+    flameLength: 400,
+    flameWidth: 220,
+    flameTaper: 0.5,
+
+    // Flame detail (0 = off. Zero costs nothing: the noise code is left out.)
+    turbulence: 0,
+    turbulenceScale: 0,
+    flickerSpeed: 0,
+    sharpness: 0.9,
+
+    // Movement
+    followSmoothness: 8,
+    velocitySmoothness: 5,
+    maxVelocity: 2000,
+    speedInfluence: 0.3,
+
+    // Performance
+    pixelRatio: 1.5,
+
+    // Scroll behavior
+    heroStartScale: 1,
+    heroEndScale: 0,
+    scrollScaleSmoothness: 8,
+    scrollShrinkPower: 4,
+  };
+
+  type Settings = typeof SETTINGS;
+
+  const canvas = document.querySelector<HTMLCanvasElement>("[data-fireball]");
+  const reveal = document.querySelector<HTMLElement>("[data-fireball-reveal]");
+  const hero = document.querySelector<HTMLElement>("#hero");
+  const desktop = window.matchMedia("(min-width: 768px)");
+
+  const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  // GLSL needs "240.0", not "240".
+  const glsl = (n: number) => (Number.isInteger(n) ? n.toFixed(1) : String(n));
+
+  const VERTEX_SHADER = `
+    attribute vec2 aPosition;
+    void main() {
+      gl_Position = vec4(aPosition, 0.0, 1.0);
+    }
+  `;
+
+  const buildFragmentShader = (s: Settings) => {
+    const useNoise = s.turbulence !== 0 || s.coreDistortion !== 0;
+
+    return `
+    precision highp float;
+    ${useNoise ? "#define USE_NOISE" : ""}
+
+    uniform vec2 uMouse;       // CSS pixels, origin bottom-left
+    uniform vec2 uVelocity;
+    uniform float uTime;
+    uniform float uBallScale;
+    uniform float uPixelRatio; // drawing-buffer pixels per CSS pixel
+
+    const float CORE_RADIUS = ${glsl(s.coreRadius)};
+    const float CORE_DISTORTION = ${glsl(s.coreDistortion)};
+    const float FLAME_LENGTH = ${glsl(s.flameLength)};
+    const float FLAME_WIDTH = ${glsl(s.flameWidth)};
+    const float FLAME_TAPER = ${glsl(s.flameTaper)};
+    const float TURBULENCE = ${glsl(s.turbulence)};
+    const float TURBULENCE_SCALE = ${glsl(s.turbulenceScale)};
+    const float FLICKER_SPEED = ${glsl(s.flickerSpeed)};
+    const float SHARPNESS = ${glsl(s.sharpness)};
+    const float SPEED_INFLUENCE = ${glsl(s.speedInfluence)};
+
+    float hash(vec2 p) {
+      return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+    }
+
+    float noise(vec2 p) {
+      vec2 i = floor(p);
+      vec2 f = fract(p);
+      f = f * f * (3.0 - 2.0 * f);
+      return mix(
+        mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+        mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
+        f.y
+      );
+    }
+
+    float fbm(vec2 p) {
+      float value = 0.0;
+      float amplitude = 0.5;
+      for (int i = 0; i < 4; i++) {
+        value += noise(p) * amplitude;
+        p *= 2.0;
+        amplitude *= 0.5;
+      }
+      return value;
+    }
+
+    // Linear -> sRGB, matching what Three.js applied to the output.
+    vec3 toSrgb(vec3 c) {
+      return mix(c * 12.92, 1.055 * pow(c, vec3(1.0 / 2.4)) - 0.055, step(vec3(0.0031308), c));
+    }
+
+    void main() {
+      float speed = length(uVelocity);
+      vec2 direction = speed > 0.5 ? normalize(uVelocity) : vec2(1.0, 0.0);
+      vec2 perpendicular = vec2(-direction.y, direction.x);
+
+      // Coordinates relative to the cursor, in CSS pixels (so the ball lines up
+      // with the pointer on scaled and retina screens), then scaled with the ball.
+      vec2 p = (gl_FragCoord.xy / uPixelRatio - uMouse) / max(uBallScale, 0.001);
+
+      float along = dot(p, direction);
+      float across = dot(p, perpendicular);
+
+      float movement = clamp(speed * SPEED_INFLUENCE / FLAME_LENGTH, 0.0, 1.0);
+      float tailLength = FLAME_LENGTH * movement;
+
+      float edgeNoise = 0.0;
+      float coreRadius = CORE_RADIUS;
+
+      #ifdef USE_NOISE
+        vec2 noisePos = p * TURBULENCE_SCALE;
+        noisePos += direction * uTime * FLICKER_SPEED * 0.12;
+        float turbulence = fbm(noisePos + vec2(uTime * 0.3, -uTime * 0.2));
+        edgeNoise = (turbulence - 0.5) * TURBULENCE;
+
+        float angle = atan(p.y, p.x);
+        float coreNoise = fbm(vec2(cos(angle), sin(angle)) * 3.0 + uTime * 0.35);
+        coreRadius += (coreNoise - 0.5) * CORE_DISTORTION + edgeNoise * 4.0;
+      #endif
+
+      float coreDistance = length(p) - coreRadius;
+
+      float tailProgress = clamp(-along / max(tailLength, 0.001), 0.0, 1.0);
+      float tailRadius = FLAME_WIDTH * pow(max(1.0 - tailProgress, 0.0), FLAME_TAPER);
+      tailRadius += edgeNoise * (1.0 - tailProgress) * 10.0;
+
+      float tailDistance = max(abs(across) - tailRadius, max(along, -along - tailLength));
+      float distanceField = min(coreDistance, tailDistance);
+
+      float edge = max(1.4, 3.0 - SHARPNESS * 1.8);
+      float alpha = 1.0 - smoothstep(-edge, edge, distanceField);
+
+      // Most of the screen is outside the shape: skip the expensive part there.
+      if (alpha <= 0.0) discard;
+
+      float detail = fbm(p * 0.035 + uTime * FLICKER_SPEED * 0.15);
+      float brightness = mix(0.72, 1.0, detail);
+
+      gl_FragColor = vec4(toSrgb(vec3(brightness)), alpha);
+    }
+  `;
+  };
+
+  const compileShader = (gl: WebGLRenderingContext, type: number, source: string) => {
+    const shader = gl.createShader(type);
+    if (!shader) return null;
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      console.error(gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
+    }
+    return shader;
+  };
+
+  const createProgram = (gl: WebGLRenderingContext, vertex: string, fragment: string) => {
+    const vs = compileShader(gl, gl.VERTEX_SHADER, vertex);
+    const fs = compileShader(gl, gl.FRAGMENT_SHADER, fragment);
+    const program = gl.createProgram();
+    if (!vs || !fs || !program) return null;
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    gl.deleteShader(vs);
+    gl.deleteShader(fs);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error(gl.getProgramInfoLog(program));
+      gl.deleteProgram(program);
+      return null;
+    }
+    return program;
+  };
+
+  const createFireball = (
+    canvas: HTMLCanvasElement,
+    reveal: HTMLElement,
+    hero: HTMLElement | null,
+  ) => {
+    const S = SETTINGS;
+
+    const gl = canvas.getContext("webgl", {
+      alpha: true,
+      antialias: false, // edges are smoothed in the shader; MSAA would only cost memory
+      depth: false,
+      stencil: false,
+      powerPreference: "high-performance",
+    });
+    if (!gl) return () => {};
+
+    const program = createProgram(gl, VERTEX_SHADER, buildFragmentShader(S));
+    if (!program) return () => {};
+
+    gl.useProgram(program);
+    gl.enable(gl.BLEND);
+    gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.clearColor(0, 0, 0, 0);
+
+    // One big triangle that covers the whole screen.
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const aPosition = gl.getAttribLocation(program, "aPosition");
+    gl.enableVertexAttribArray(aPosition);
+    gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+    const uMouse = gl.getUniformLocation(program, "uMouse");
+    const uVelocity = gl.getUniformLocation(program, "uVelocity");
+    const uTime = gl.getUniformLocation(program, "uTime");
+    const uBallScale = gl.getUniformLocation(program, "uBallScale");
+    const uPixelRatio = gl.getUniformLocation(program, "uPixelRatio");
+
+    // Sizes (CSS pixels)
+    let viewHeight = canvas.clientHeight;
+
+    // Hero position, measured once instead of every frame.
+    let heroDocTop = 0;
+    let heroHeight = 1;
+
+    // Pointer + motion state (y is measured from the bottom, like gl_FragCoord)
+    let targetX = canvas.clientWidth / 2;
+    let targetY = viewHeight / 2;
+    let smoothX = targetX;
+    let smoothY = targetY;
+    let prevX = targetX;
+    let prevY = targetY;
+    let velX = 0;
+    let velY = 0;
+
+    let targetScale = S.heroStartScale;
+    let ballScale = S.heroStartScale;
+
+    let running = false;
+    let rafId = 0;
+    let last = 0;
+
+    const measureHero = () => {
+      if (!hero) return;
+      const rect = hero.getBoundingClientRect();
+      heroDocTop = rect.top + window.scrollY;
+      heroHeight = rect.height;
+    };
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio || 1, S.pixelRatio);
+      const width = canvas.clientWidth;
+      viewHeight = canvas.clientHeight;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(viewHeight * ratio);
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform1f(uPixelRatio, width > 0 ? canvas.width / width : 1);
+      measureHero();
+    };
+
+    // Is any part of the hero on screen? (Cached offset + scroll: no layout reads.)
+    const heroInView = () => {
+      if (!hero) return true;
+      const top = heroDocTop - window.scrollY;
+      return top + heroHeight > 0 && top < viewHeight;
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      targetX = event.clientX;
+      targetY = viewHeight - event.clientY;
+    };
+
+    const tick = (now: number) => {
+      rafId = requestAnimationFrame(tick);
+
+      const delta = Math.min((now - last) / 1000, 0.033);
+      last = now;
+
+      // Hero position from cached offset + scroll: no layout reads per frame.
+      const heroTop = heroDocTop - window.scrollY;
+      const heroBottom = heroTop + heroHeight;
+
+      // Shrink the fireball as the hero scrolls out of view.
+      if (hero) {
+        const rawProgress = clamp(1 - heroBottom / Math.max(heroHeight, 1), 0, 1);
+        const progress = Math.pow(rawProgress, 1 / S.scrollShrinkPower);
+        targetScale = lerp(S.heroStartScale, S.heroEndScale, progress);
+      }
+      ballScale = lerp(ballScale, targetScale, 1 - Math.exp(-S.scrollScaleSmoothness * delta));
+
+      // Smoothly follow the pointer.
+      const follow = 1 - Math.exp(-S.followSmoothness * delta);
+      smoothX = lerp(smoothX, targetX, follow);
+      smoothY = lerp(smoothY, targetY, follow);
+
+      // Keep the image reveal in sync with the smoothed fireball.
+      if (hero) {
+        reveal.style.setProperty("--x", `${smoothX}px`);
+        reveal.style.setProperty("--y", `${viewHeight - smoothY - heroTop}px`);
+        reveal.style.setProperty("--radius", `${S.coreRadius * ballScale}px`);
+        reveal.style.setProperty(
+          "--reveal-opacity",
+          heroBottom > 0 && heroTop < viewHeight && ballScale > 0.01 ? "1" : "0",
+        );
+      }
+
+      // Velocity from the actual smoothed movement.
+      let vx = (smoothX - prevX) / Math.max(delta, 0.001);
+      let vy = (smoothY - prevY) / Math.max(delta, 0.001);
+      prevX = smoothX;
+      prevY = smoothY;
+
+      const speed = Math.hypot(vx, vy);
+      if (speed > S.maxVelocity) {
+        vx *= S.maxVelocity / speed;
+        vy *= S.maxVelocity / speed;
+      }
+
+      const velocityFollow = 1 - Math.exp(-S.velocitySmoothness * delta);
+      velX = lerp(velX, vx, velocityFollow);
+      velY = lerp(velY, vy, velocityFollow);
+
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      // Hero is off screen and the ball has shrunk away: stop drawing entirely.
+      if (ballScale < 0.005 && !heroInView()) {
+        running = false;
+        cancelAnimationFrame(rafId);
+        return;
+      }
+
+      gl.uniform2f(uMouse, smoothX, smoothY);
+      gl.uniform2f(uVelocity, velX, velY);
+      gl.uniform1f(uTime, now / 1000);
+      gl.uniform1f(uBallScale, ballScale);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      last = performance.now();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    // Wake the loop back up when the hero scrolls into view again.
+    const onScroll = () => {
+      if (!running && heroInView()) start();
+    };
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
+    if (hero) resizeObserver.observe(hero);
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("load", measureHero);
+
+    resize();
+    start();
+
+    return () => {
+      running = false;
+      cancelAnimationFrame(rafId);
+      resizeObserver.disconnect();
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("load", measureHero);
+      gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
+    };
+  };
+
+  if (canvas && reveal) {
+    let destroy: (() => void) | undefined;
+
+    // Run only while the layout is desktop-sized, and follow window resizes.
+    const sync = () => {
+      if (desktop.matches && !destroy) {
+        destroy = createFireball(canvas, reveal, hero);
+      } else if (!desktop.matches && destroy) {
+        destroy();
+        destroy = undefined;
+        reveal.style.setProperty("--reveal-opacity", "0");
+      }
+    };
+
+    desktop.addEventListener("change", sync);
+    sync();
+  }
+</script>
