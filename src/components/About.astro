@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import aboutImage from "../assets/Christian-Rey-Piape.avif";
+---
+
+<section id="about" class="py-15 md:py-30 px-5 flex flex-col gap-6 sm:gap-8">
+  <div class="max-w-4xl mx-auto text-justify sm:text-center text-sm sm:text-base">
+    <p>
+      I’m Christian Rey Piape, a creative developer who cares deeply about the work I put into the world.
+      <br />
+      <br />
+      I design and build websites for people and brands with something worth saying. I like working closely with the people behind the business, understanding what they’re trying to build, and turning that into something that feels intentional, works well, and actually feels like them.
+      <br />
+      <br />
+      I don’t believe in rushing good work just to get it out the door. I’d rather take the time to think through the details, refine the rough edges, and build something I’m genuinely proud to put my name on.
+    </p>
+  </div>
+
+  <div class="flex items-center gap-3 sm:mx-auto">
+    <div class="w-12 sm:w-15 rounded-full overflow-hidden">
+      <Image
+        src={aboutImage}
+        alt="Portrait of Christian Rey Piape"
+        width={60}
+        height={60}
+        densities={[1, 2]}
+      />
+    </div>
+    <div class="flex flex-col gap-0">
+      <h3 class="text-sm sm:text-md font-medium">Christian Rey Piape</h3>
+      <p class="text-xs sm:text-xs text-gray-600">Creative Developer ⚡ Chopper Guy</p>
+    </div>
+  </div>
+</section>

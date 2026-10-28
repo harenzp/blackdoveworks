@@ -1,0 +1,50 @@
+---
+const year = new Date().getFullYear();
+
+const contact = [
+  { label: "christianreypiape@gmail.com", href: "mailto:christianreypiape@gmail.com" },
+  { label: "+639311161150", href: "tel:+639311161150" },
+];
+
+const social = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/christian-rey-piape" },
+  { label: "GitHub", href: "https://github.com/harenzp" },
+  { label: "Instagram", href: "https://www.instagram.com/harenznopra" },
+  { label: "Spotify", href: "https://open.spotify.com/user/harenzzz" },
+];
+---
+
+<section id="footer" class="py-5 pt-60 px-6 bg-black">
+  <div class="flex justify-between flex-col-reverse gap-30 sm:items-end sm:flex-row text-white">
+    <div class="flex flex-col">
+      <h2 class="font-archivo font-semibold">Christian Rey Piape</h2>
+      <p class="font-archivo font-medium text-md">© {year} All rights reserved</p>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-10 sm:gap-20 sm:mr-30">
+      <div class="flex flex-col">
+        <h3 class="mb-5 text-white/70 font-medium">Contact</h3>
+        <ul class="flex flex-col gap-1">
+          {contact.map(({ label, href }) => (
+            <li>
+              <a href={href} class="hover:underline">{label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="flex flex-col">
+        <h3 class="mb-5 text-white/70 font-medium">Follow</h3>
+        <ul class="flex flex-col gap-1">
+          {social.map(({ label, href }) => (
+            <li>
+              <a href={href} target="_blank" rel="noopener noreferrer" class="hover:underline">
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
