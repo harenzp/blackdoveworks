@@ -1,0 +1,64 @@
+---
+const email = "christianreypiape@gmail.com";
+
+const links = [
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#selected-work" },
+  { label: "Process", href: "#process" },
+  { label: "FAQ", href: "#faq" },
+];
+---
+
+<header class="static">
+  <nav class="navbar flex flex-wrap justify-between gap-1 text-sm sm:text-lg">
+    <ul class="flex gap-1">
+      {links.map(({ label, href }) => (
+        <li>
+          <a href={href} class="link-hover px-1">{label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <button
+      type="button"
+      class="link-hover cursor-pointer px-1"
+      aria-live="polite"
+      data-copy-email={email}
+    >
+      <span data-copy-idle>
+        <span class="sm:hidden">Contact</span>
+        <span class="hidden sm:inline">{email}</span>
+      </span>
+      <span data-copy-done hidden>email copied!</span>
+    </button>
+  </nav>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-copy-email]");
+  const idle = button?.querySelector<HTMLElement>("[data-copy-idle]");
+  const done = button?.querySelector<HTMLElement>("[data-copy-done]");
+  let timer: ReturnType<typeof setTimeout> | undefined;
+
+  button?.addEventListener("click", async () => {
+    const email = button.dataset.copyEmail ?? "";
+
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Clipboard blocked or unavailable: open the mail app instead.
+      window.location.href = `mailto:${email}`;
+      return;
+    }
+
+    if (!idle || !done) return;
+    idle.hidden = true;
+    done.hidden = false;
+
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      idle.hidden = false;
+      done.hidden = true;
+    }, 2000);
+  });
+</script>
