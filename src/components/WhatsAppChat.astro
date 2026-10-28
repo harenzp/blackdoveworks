@@ -1,0 +1,161 @@
+---
+import { Image } from "astro:assets";
+import profileImage from "../assets/Christian-Rey-Piape.avif";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+
+const WHATSAPP_NUMBER = "639311161150";
+const WHATSAPP_MESSAGE =
+  "Hey Christian! I came across your portfolio and would like to discuss a project.";
+
+const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+---
+
+<div class="whatsapp-chat">
+  <!-- Floating button. popovertarget toggles the popover below: no JavaScript. -->
+  <button
+    type="button"
+    popovertarget="whatsapp-chat"
+    aria-label="Chat with Christian on WhatsApp"
+    class="fixed bottom-6 right-6 z-10000 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-[#25D366]/30 bg-[#101010] text-[#25D366] shadow-lg shadow-black/30 transition duration-300 hover:scale-105 hover:bg-[#191919] hover:shadow-[#25D366]/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#25D366]"
+  >
+    <span class="wa-icon wa-icon-open"><WhatsAppIcon size={27} /></span>
+    <span class="wa-icon wa-icon-close" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+        <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </span>
+  </button>
+
+  <!-- Chat window. The browser handles Escape, click-outside and focus return. -->
+  <div
+    id="whatsapp-chat"
+    popover
+    role="dialog"
+    aria-label="Chat with Christian on WhatsApp"
+    class="fixed top-auto left-auto bottom-24 right-6 m-0 w-[min(350px,calc(100vw-3rem))] overflow-hidden rounded-2xl border border-white/10 bg-[#101010] p-0 text-white shadow-2xl shadow-black/50"
+  >
+    <!-- Header -->
+    <div class="flex items-center gap-3 border-b border-white/10 bg-[#171717] px-5 py-4">
+      <div class="h-11 w-11 shrink-0 overflow-hidden rounded-full border border-[#25D366]/40">
+        <Image
+          src={profileImage}
+          alt="Christian Piape"
+          width={44}
+          height={44}
+          densities={[1, 2]}
+          class="h-full w-full object-cover"
+        />
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <p class="font-archivo text-sm font-semibold tracking-wide">Christian Piape</p>
+        <p class="mt-1 flex items-center gap-1.5 text-xs text-neutral-400">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#25D366]"></span>
+          Available for select projects
+        </p>
+      </div>
+
+      <button
+        type="button"
+        popovertarget="whatsapp-chat"
+        popovertargetaction="hide"
+        aria-label="Close chat window"
+        class="cursor-pointer rounded-full p-2 text-neutral-400 transition hover:bg-white/5 hover:text-white"
+      >
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+          <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Message -->
+    <div class="bg-[#0b0b0b] p-5">
+      <p class="mb-4 font-archivo text-[10px] font-medium tracking-[0.18em] text-neutral-500">
+        LET'S TALK
+      </p>
+
+      <div class="relative max-w-[95%] rounded-xl rounded-tl-sm border border-white/6 bg-[#191919] px-4 py-4">
+        <p class="text-sm leading-relaxed text-neutral-200">
+          Hey there! Thanks for stopping by. Have a project in mind? I'd love to hear what you're
+          working on. Let's talk.
+        </p>
+        <p class="mt-3 text-[10px] text-neutral-500">Typically replies as soon as possible.</p>
+      </div>
+    </div>
+
+    <!-- WhatsApp CTA -->
+    <div class="border-t border-white/10 bg-[#101010] p-4">
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-black transition duration-200 hover:bg-[#20bd5a]"
+      >
+        <WhatsAppIcon size={19} />
+        Chat on WhatsApp
+      </a>
+
+      <p class="mt-3 text-center text-[10px] tracking-wide text-neutral-500">OPENS WHATSAPP</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Button icon: the WhatsApp glyph turns into a close cross while the chat is open. */
+  .wa-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .wa-icon-close {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.6);
+  }
+
+  .whatsapp-chat:has(:popover-open) .wa-icon-open {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.6);
+  }
+
+  .whatsapp-chat:has(:popover-open) .wa-icon-close {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Chat window: fades and rises in, and animates out too. */
+  #whatsapp-chat {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.97);
+    transform-origin: bottom right;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      overlay 0.25s allow-discrete,
+      display 0.25s allow-discrete;
+  }
+
+  #whatsapp-chat:popover-open {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    #whatsapp-chat:popover-open {
+      opacity: 0;
+      transform: translateY(0.75rem) scale(0.97);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-icon,
+    #whatsapp-chat {
+      transition: none;
+    }
+  }
+</style>

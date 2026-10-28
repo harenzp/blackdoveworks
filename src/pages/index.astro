@@ -1,9 +1,12 @@
 ---
-import "../index.css"
 import "@fontsource-variable/archivo";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
-import WhatsAppChat from "../components/WhatsAppChat.jsx";
+import "../index.css";
+
+import CursorEffect from "../components/CursorEffect.astro";
+import WhatsAppChat from "../components/WhatsAppChat.astro";
+import SmoothScroll from "../components/SmoothScroll.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
@@ -11,8 +14,6 @@ import SelectedWork from "../components/SelectedWork.astro";
 import Process from "../components/Process.astro";
 import FAQ from "../components/FAQ.astro";
 import Footer from "../components/Footer.astro";
-import CursorEffect from "../components/CursorEffect.astro";
-import SmoothScroll from "../components/SmoothScroll.astro";
 ---
 
 <html lang="en">
@@ -28,8 +29,8 @@ import SmoothScroll from "../components/SmoothScroll.astro";
 	<body>
 		<main>
 			<CursorEffect />
+			<WhatsAppChat />
 			<SmoothScroll />
-			<WhatsAppChat client:load />
 			<Navbar />
 			<Hero />
 			<About />
