@@ -1,0 +1,57 @@
+---
+import { Image } from "astro:assets";
+import portraitImage from "../assets/christian-rey-piape-muninn.avif";
+
+// Vertical position of the photo inside the circle:
+// 0 = top of the photo, 50 = centered, 100 = bottom of the photo.
+const PORTRAIT_Y = 100;
+---
+
+<section
+  id="hero"
+  class="relative flex flex-col md:flex-row h-svh overflow-hidden px-2 sm:px-5 pt-23 sm:pt-30 pb-5 sm:pb-4"
+>
+  <!-- Mobile only: the cursor reveal is desktop-only, so show the portrait statically. -->
+  <div
+    class="mb-8 flex min-h-0 flex-1 items-end justify-center md:hidden"
+    style="container-type: size"
+    aria-hidden="true"
+  >
+    <div
+      class="overflow-hidden rounded-full bg-black"
+      style="width: min(100cqw, 100cqh); height: min(100cqw, 100cqh)"
+    >
+      <Image
+        src={portraitImage}
+        alt=""
+        width={640}
+        widths={[320, 480, 640]}
+        sizes="(max-width: 767px) 100vw, 1px"
+        format="avif"
+        loading="eager"
+        fetchpriority="high"
+        class="pointer-events-none h-full w-full object-cover"
+        style={`object-position: 50% ${PORTRAIT_Y}%`}
+      />
+    </div>
+  </div>
+
+  <div class="relative z-10 flex flex-wrap w-full gap-10 justify-between mt-auto">
+    <div class="flex flex-col gap-5 sm:gap-10">
+      <h1 class="font-archivo text-[clamp(2rem,18vw,15rem)] sm:text-[clamp(2rem,15vw,15rem)] font-bold leading-[0.8]">
+        Christian<br />Rey<br />Piape.
+      </h1>
+      <p class="text-xl sm:text-[clamp(1rem,3vw,2.75rem)] ml-2 sm:ml-4">
+        zero tolerance for mediocrity.
+      </p>
+    </div>
+
+    <div class="mx-auto sm:mx-0 text-center sm:text-left flex max-w-[35ch] sm:max-w-[45ch] text-sm sm:text-base">
+      <p>
+        Designing and developing modern websites for brands that refuse to conform.
+        Every project is crafted with intention, engineered for performance,
+        and shaped around your brand's identity.
+      </p>
+    </div>
+  </div>
+</section>
