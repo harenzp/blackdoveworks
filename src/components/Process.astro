@@ -1,0 +1,122 @@
+---
+import discoverVideo from "../assets/process/discover.mp4";
+import designVideo from "../assets/process/design.mp4";
+import developVideo from "../assets/process/develop.mp4";
+import launchVideo from "../assets/process/launch.mp4";
+
+const steps = [
+  {
+    number: "01",
+    title: "Discover",
+    description:
+      "We start with a conversation. I get to know you, your brand, your goals, and what you want the website to achieve. From there, we define the direction and what needs to be built.",
+    video: discoverVideo,
+  },
+  {
+    number: "02",
+    title: "Design",
+    description:
+      "With the direction clear, I shape the visual experience around your brand. I focus on making it feel intentional, easy to use, and genuinely yours.",
+    video: designVideo,
+  },
+  {
+    number: "03",
+    title: "Develop",
+    description:
+      "Once the design is ready, I bring it to life with clean, responsive, and high-performing development. I follow modern web standards and best practices, with attention to accessibility, performance, and SEO.",
+    video: developVideo,
+  },
+  {
+    number: "04",
+    title: "Launch and Beyond",
+    description:
+      "Before anything goes live, I thoroughly test the website across devices and screen sizes. I make sure the technical SEO foundations are in place, everything works as it should, and the site is ready to be discovered, used, and built on.",
+    video: launchVideo,
+  },
+];
+---
+
+<section id="process" class="px-5 py-20 md:px-10 md:py-30">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-10 flex justify-center md:mb-20">
+      <h2 class="font-archivo text-3xl sm:text-6xl font-medium">The Process</h2>
+    </div>
+
+    <div class="mx-auto flex max-w-5xl flex-col gap-5">
+      {steps.map(({ number, title, description, video }, index) => (
+        <div
+          class="group relative py-1"
+          data-process-step
+          data-active={index === 0 ? "true" : "false"}
+        >
+          <div class="flex gap-5 text-left md:gap-8">
+            <span
+              class="font-archivo text-2xl md:text-4xl text-black/60 transition-colors duration-300 group-data-[active=true]:text-black"
+            >
+              {number}
+            </span>
+
+            <div class="flex flex-1 flex-col gap-3">
+              <h3
+                class="font-archivo text-2xl font-medium text-black/60 transition-colors duration-300 md:text-4xl group-data-[active=true]:text-black"
+              >
+                {title}
+              </h3>
+
+              <p class="max-w-[59rem] text-sm leading-relaxed text-black/90 md:text-base">
+                {description}
+              </p>
+            </div>
+          </div>
+
+          <!-- Floating clip detail -->
+          <div
+            class="pointer-events-none absolute left-[calc(100%+1rem)] top-1/2 z-20 hidden w-28 -translate-y-1/2 translate-x-3 rotate-6 scale-90 overflow-hidden rounded-lg opacity-0 shadow-xl transition-all duration-300 ease-out motion-reduce:hidden xl:block group-data-[active=true]:translate-x-0 group-data-[active=true]:rotate-3 group-data-[active=true]:scale-100 group-data-[active=true]:opacity-100"
+          >
+            <video
+              src={video}
+              muted
+              loop
+              playsinline
+              preload="none"
+              tabindex="-1"
+              aria-hidden="true"
+              class="aspect-square w-full object-cover"
+            ></video>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const steps = document.querySelectorAll<HTMLElement>("[data-process-step]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const activate = (active: HTMLElement) => {
+    steps.forEach((step) => {
+      const isActive = step === active;
+      step.dataset.active = String(isActive);
+
+      // Only the active step's clip plays. preload="none" means nothing is
+      // downloaded until play() runs, and offsetParent is null while the clip
+      // is hidden (below xl), so phones and tablets never fetch it.
+      const video = step.querySelector("video");
+      if (!video) return;
+
+      if (isActive && !reducedMotion.matches && video.offsetParent !== null) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  };
+
+  steps.forEach((step) => {
+    step.addEventListener("mouseenter", () => activate(step));
+    step.addEventListener("focusin", () => activate(step));
+  });
+
+  if (steps[0]) activate(steps[0]);
+</script>
