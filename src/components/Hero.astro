@@ -5,39 +5,43 @@ import portraitImage from "../assets/christian-rey-piape-muninn.avif";
 // Vertical position of the photo inside the circle:
 // 0 = top of the photo, 50 = centered, 100 = bottom of the photo.
 const PORTRAIT_Y = 100;
+const circleSize = "min(45vw, 280px)";
 ---
 
 <section
   id="hero"
-  class="relative flex flex-col md:flex-row h-svh overflow-hidden px-2 sm:px-5 pt-23 sm:pt-30 pb-5 sm:pb-4"
+  class="relative flex flex-col md:flex-row min-h-svh md:h-svh overflow-hidden px-2 sm:px-5 pt-23 sm:pt-30 pb-5 sm:pb-4"
 >
-  <!-- Mobile only: the cursor reveal is desktop-only, so show the portrait statically. -->
+  <!--
+    Phone: a column. The title group (portrait, name, tagline) is centered in the
+    space above the paragraph. On short phones the hero grows taller than the
+    screen instead of clipping. md and up: the original row, pinned to the bottom.
+  -->
   <div
-    class="mb-8 flex min-h-0 flex-1 items-end justify-center md:hidden"
-    style="container-type: size"
-    aria-hidden="true"
+    class="relative z-10 flex w-full flex-1 flex-col gap-6 pt-6 md:mt-auto md:flex-none md:flex-row md:flex-wrap md:justify-between md:gap-10 md:pt-0"
   >
-    <div
-      class="overflow-hidden rounded-full bg-black"
-      style="width: min(100cqw, 100cqh, 260px); height: min(100cqw, 100cqh, 260px)"
-    >
-      <Image
-        src={portraitImage}
-        alt=""
-        width={640}
-        widths={[320, 480, 640]}
-        sizes="(max-width: 767px) 100vw, 1px"
-        format="avif"
-        loading="eager"
-        fetchpriority="high"
-        class="pointer-events-none h-full w-full object-cover"
-        style={`object-position: 50% ${PORTRAIT_Y}%`}
-      />
-    </div>
-  </div>
+    <div class="my-auto flex flex-col gap-5 sm:gap-10 md:my-0">
+      <!-- Mobile only: the cursor reveal is desktop-only, so show the portrait statically. -->
+      <div
+        class="shrink-0 self-center overflow-hidden rounded-full bg-black md:hidden"
+        style={`width: ${circleSize}; height: ${circleSize}`}
+        aria-hidden="true"
+      >
+        <Image
+          src={portraitImage}
+          alt=""
+          width={960}
+          widths={[320, 800, 960]}
+          sizes={`(max-width: 767px) ${circleSize}, 1px`}
+          quality={100}
+          format="avif"
+          loading="eager"
+          fetchpriority="high"
+          class="pointer-events-none h-full w-full object-cover"
+          style={`object-position: 50% ${PORTRAIT_Y}%`}
+        />
+      </div>
 
-  <div class="relative z-10 flex flex-wrap w-full gap-10 justify-between mt-auto">
-    <div class="flex flex-col gap-5 sm:gap-10">
       <h1 class="font-archivo text-[clamp(2rem,18vw,15rem)] sm:text-[clamp(2rem,15vw,15rem)] font-bold leading-[0.8]">
         Christian<br />Rey<br />Piape.
       </h1>
