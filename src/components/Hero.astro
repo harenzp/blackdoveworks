@@ -5,10 +5,7 @@ import portraitImage from "../assets/christian-rey-piape-muninn.avif";
 // Vertical position of the photo inside the circle:
 // 0 = top of the photo, 50 = centered, 100 = bottom of the photo.
 const PORTRAIT_Y = 100;
-
-// Portrait circle on mobile: 65% of the screen width, never more than 300px.
-// It depends only on width, never on height.
-const circleSize = "min(50vw, 280px)";
+const circleSize = "min(45vw, 280px)";
 ---
 
 <section
@@ -33,9 +30,10 @@ const circleSize = "min(50vw, 280px)";
         <Image
           src={portraitImage}
           alt=""
-          width={640}
-          widths={[320, 480, 640]}
-          sizes="(max-width: 767px) min(65vw, 300px), 1px"
+          width={960}
+          widths={[320, 800, 960]}
+          sizes={`(max-width: 767px) ${circleSize}, 1px`}
+          quality={100}
           format="avif"
           loading="eager"
           fetchpriority="high"
