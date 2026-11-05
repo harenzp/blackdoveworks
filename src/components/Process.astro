@@ -51,14 +51,14 @@ const steps = [
         >
           <div class="flex gap-5 text-left md:gap-8">
             <span
-              class="font-archivo text-2xl md:text-4xl text-black/60 transition-colors duration-300 group-data-[active=true]:text-black"
+              class="font-archivo text-2xl md:text-4xl text-black transition-colors duration-300 [@media(hover:hover)]:group-data-[active=false]:text-black/60"
             >
               {number}
             </span>
 
-            <div class="flex flex-1 flex-col gap-3">
+            <div class="flex flex-1 flex-col gap-2 md:gap-3">
               <h3
-                class="font-archivo text-2xl font-medium text-black/60 transition-colors duration-300 md:text-4xl group-data-[active=true]:text-black"
+                class="font-archivo text-2xl font-medium text-black transition-colors duration-300 md:text-4xl [@media(hover:hover)]:group-data-[active=false]:text-black/60"
               >
                 {title}
               </h3>
@@ -93,6 +93,7 @@ const steps = [
 <script>
   const steps = document.querySelectorAll<HTMLElement>("[data-process-step]");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const canHover = window.matchMedia("(hover: hover)");
 
   const activate = (active: HTMLElement) => {
     steps.forEach((step) => {
@@ -114,8 +115,12 @@ const steps = [
   };
 
   steps.forEach((step) => {
-    step.addEventListener("mouseenter", () => activate(step));
-    step.addEventListener("focusin", () => activate(step));
+    step.addEventListener("mouseenter", () => {
+      if (canHover.matches) activate(step);
+    });
+    step.addEventListener("focusin", () => {
+      if (canHover.matches) activate(step);
+    });
   });
 
   if (steps[0]) activate(steps[0]);
